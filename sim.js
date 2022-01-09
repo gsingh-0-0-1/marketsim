@@ -1,6 +1,9 @@
 const fs = require('fs');
 
 var START_PRICE = 100.0
+var npeople = 100;
+var nshares = 1
+var bal_per_person = 1000;
 
 var PRICES = [START_PRICE]
 
@@ -35,7 +38,7 @@ var BENCHMARK_PERIOD_STD = 0.05
 
 //when the number of shares on sale is less than this parameter multiplied by the total number of shares
 //selling, the low-supply-sell mechanism kicks in
-var LOW_SUPPLY_SELL_MEAN = 0.1
+var LOW_SUPPLY_SELL_MEAN = 0.15
 var LOW_SUPPLY_SELL_STD = 0.02
 
 //this controls the max price inflation that a person will sell a share at if the supply is low enough
@@ -284,14 +287,10 @@ class Person{
 
 var G = new Group()
 
-var npeople = 100;
-
 for (var i = 0; i < npeople; i++){
-	var p = new Person(5000.0, G)
+	var p = new Person(bal_per_person, G)
 	p.invest_loop.bind(p)
 }
-
-var nshares = 3
 
 for (var i = 0; i < npeople; i++){
 	for (var j = 0; j < nshares; j++){
@@ -336,3 +335,7 @@ function saveData(){
 }
 
 saveData()
+
+setInterval(function(){
+	console.log(SALES.length, PRICES[PRICES.length - 1], cheapest_sale().sellingfor)
+}, 1000)
