@@ -8,14 +8,15 @@ while True:
 	PRICES = np.loadtxt("prices.txt")
 	WORTHS = np.loadtxt("worths.txt")
 	SHARES = np.loadtxt("shares.txt")
+	CASH = np.loadtxt("cash.txt")
 
 	a1 = f.add_subplot(2, 2, 1)
 	a1.set_title("All-Time Values")
 	a1.plot(PRICES)
 
 	a2 = f.add_subplot(2, 2, 2)
-	a2.set_title("Last 20 Values")
-	a2.plot(PRICES[-20:])
+	a2.set_title("Liquid Cash Distribution")
+	a2.hist(CASH, 30)
 
 	a3 = f.add_subplot(2, 2, 3)
 	a3.set_title("Net Worth Distribution")
